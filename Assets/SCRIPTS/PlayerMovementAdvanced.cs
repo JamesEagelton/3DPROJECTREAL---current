@@ -81,6 +81,8 @@ public class PlayerMovementAdvanced : MonoBehaviour
             rb.drag = groundDrag;
         else
             rb.drag = 0;
+
+        transform.LookAt(Camera.main.transform.position);
     }
 
     private void FixedUpdate()

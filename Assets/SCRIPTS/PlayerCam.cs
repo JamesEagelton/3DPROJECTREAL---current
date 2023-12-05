@@ -7,12 +7,16 @@ public class PlayerCam : MonoBehaviour
     public float sensX, sensY;
     public Transform orientation;
     public Vector2 turn;
+   
+
 
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+       
     }
+   
 
     private void Update()
     {
@@ -24,4 +28,6 @@ public class PlayerCam : MonoBehaviour
         transform.rotation = Quaternion.Euler(-turn.y, turn.x, 0);
         orientation.rotation = Quaternion.Euler(0, turn.x, 0);
     }
+
+    
 }
