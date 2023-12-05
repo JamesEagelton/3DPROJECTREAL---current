@@ -82,7 +82,7 @@ public class PlayerMovementAdvanced : MonoBehaviour
         else
             rb.drag = 0;
 
-        transform.LookAt(Camera.main.transform.position);
+        transform.rotation = Quaternion.Euler(0, Camera.main.transform.eulerAngles.y, 0);
     }
 
     private void FixedUpdate()
