@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using static UnityEditor.Searcher.SearcherWindow.Alignment;
 
 public class PlayerMovementAdvanced : MonoBehaviour
 {
@@ -54,7 +55,8 @@ public class PlayerMovementAdvanced : MonoBehaviour
         walking,
         sprinting,
         crouching,
-        air
+        air,
+        jumping
     }
 
     private void Start()
@@ -72,10 +74,20 @@ public class PlayerMovementAdvanced : MonoBehaviour
         // ground check
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
 
+        
         MyInput();
         SpeedControl();
         StateHandler();
+        Debug.Log(state);
+        if (state == MovementState.air) 
+        {
+           
 
+
+        }
+        
+        
+        
         // handle drag
         if (grounded)
             rb.drag = groundDrag;
@@ -102,6 +114,7 @@ public class PlayerMovementAdvanced : MonoBehaviour
 
             Jump();
 
+            
             Invoke(nameof(ResetJump), jumpCooldown);
         }
 
@@ -129,7 +142,7 @@ public class PlayerMovementAdvanced : MonoBehaviour
         }
 
         // Mode - Sprinting
-        else if(grounded && Input.GetKey(sprintKey))
+        else if (grounded && Input.GetKey(sprintKey))
         {
             state = MovementState.sprinting;
             moveSpeed = sprintSpeed;
@@ -140,6 +153,11 @@ public class PlayerMovementAdvanced : MonoBehaviour
         {
             state = MovementState.walking;
             moveSpeed = walkSpeed;
+        }
+        else if (!grounded && Input.GetKey(jumpKey)) 
+        {
+            state = MovementState.jumping;
+
         }
 
         // Mode - Air
