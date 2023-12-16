@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
-using TMPro;
-using static UnityEditor.Searcher.SearcherWindow.Alignment;
+
 
 public class PlayerMovementAdvanced : MonoBehaviour
 {
@@ -10,7 +8,8 @@ public class PlayerMovementAdvanced : MonoBehaviour
     private float moveSpeed;
     public float walkSpeed;
     public float sprintSpeed;
-
+    public float gravity;
+    
     public float groundDrag;
 
     [Header("Jumping")]
@@ -38,7 +37,8 @@ public class PlayerMovementAdvanced : MonoBehaviour
     public float maxSlopeAngle;
     private RaycastHit slopeHit;
     private bool exitingSlope;
-    
+
+     Physics RealPhysics;
 
     public Transform orientation;
 
@@ -100,6 +100,7 @@ public class PlayerMovementAdvanced : MonoBehaviour
     private void FixedUpdate()
     {
         MovePlayer();
+        rb.AddForce(Vector3.down * gravity * rb.mass);
     }
 
     private void MyInput()
